@@ -2,7 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,8 +18,8 @@ public class SwerveModule {
     private final CANSparkMax driveMotor;
     private final CANSparkMax turningMotor;
 
-    private final CANEncoder driveEncoder;
-    private final CANEncoder turningEncoder;
+    private final CANcoder driveEncoder;
+    private final CANcoder turningEncoder;
 
     private final PIDController turningPidController;
 
