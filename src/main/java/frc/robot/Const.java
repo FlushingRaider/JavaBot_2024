@@ -98,6 +98,7 @@ public final class Const {
         public static final int kDriverXAxis = 0;
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
+        public static final int kzeroGyroButtonIdx = 5; //REVIEW - Update this value
 
         public static final double kDeadband = 0.05;
     }
