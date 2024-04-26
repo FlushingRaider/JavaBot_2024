@@ -38,7 +38,7 @@ public final class Const {
 
         public static final int kFrontLeftTurningMotorPort = 4;
         public static final int kBackLeftTurningMotorPort = 7;
-        public static final int kFrontRightTurningMotorPort = 1;
+        public static final int kFrontRightTurningMotorPort = 23;
         public static final int kBackRightTurningMotorPort = 5;
 
         public static final boolean kFrontLeftTurningEncoderReversed = true;

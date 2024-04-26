@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -23,7 +24,8 @@ public class SwerveModule {
 
     private final PIDController turningPidController;
 
-    private final AnalogInput absoluteEncoder;
+    //private final AnalogInput absoluteEncoder;
+    private final CANcoder SteerCANcoder;
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
 
@@ -32,7 +34,11 @@ public class SwerveModule {
 
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
-        absoluteEncoder = new AnalogInput(absoluteEncoderId);
+        
+        //Switch over to absolute encoder from analog input to CANCoder 
+        //absoluteEncoder = new AnalogInput(absoluteEncoderId);
+
+        SteerCANcoder = new CANcoder(absoluteEncoderId);
 
         driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
@@ -71,7 +77,8 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoderRad() {
-        double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
+        double angle = SteerCANcoder.getPosition().getValueAsDouble();
+        SmartDashboard.putString("Swerve[" + SteerCANcoder.getDeviceID() + "] angle", String.valueOf(angle));
         angle *= 2.0 * Math.PI;
         angle -= absoluteEncoderOffsetRad;
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
@@ -94,7 +101,7 @@ public class SwerveModule {
         state = SwerveModuleState.optimize(state, getState().angle);
         driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
-        SmartDashboard.putString("Swerve[" + absoluteEncoder.getChannel() + "] state", state.toString());
+        SmartDashboard.putString("Swerve[" + SteerCANcoder.getDeviceID() + "] state", state.toString());
     }
 
     public void stop() {
