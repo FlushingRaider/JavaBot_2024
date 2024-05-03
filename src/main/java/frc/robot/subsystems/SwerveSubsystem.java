@@ -127,7 +127,12 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
             DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
-    private SwerveModulePosition[] swerveModulePos = new SwerveModulePosition[4];
+    private SwerveModulePosition[] swerveModulePos = new SwerveModulePosition[] {
+                                                    frontLeft.getPosition(),
+                                                    frontRight.getPosition(),
+                                                    backLeft.getPosition(),
+                                                    backRight.getPosition()
+                                                    };
 
     private final AHRS gyro = new AHRS(SPI.Port.kMXP);
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,

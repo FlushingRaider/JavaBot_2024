@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.Const.DriveConstants;
@@ -47,6 +48,11 @@ public class SwerveJoystickCmd extends Command {
         double xSpeed = xSpdFunction.get();
         double ySpeed = ySpdFunction.get();
         double turningSpeed = turningSpdFunction.get();
+
+        SmartDashboard.putNumber("Cntrl xSpeed", xSpeed);
+        SmartDashboard.putNumber("Cntrl ySpeed", ySpeed);
+        SmartDashboard.putNumber("Cntrl turnSpeed", turningSpeed);
+
 
         // 2. Apply deadband
         xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;

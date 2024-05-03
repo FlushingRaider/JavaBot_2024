@@ -5,12 +5,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Const.DriveConstants;
 import frc.robot.Const.ModuleConstants;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveModule {
@@ -29,7 +29,7 @@ public class SwerveModule {
     private final double absoluteEncoderOffsetRad;
 
     public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
-            int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
+            int CANcoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
 
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
@@ -37,7 +37,7 @@ public class SwerveModule {
         //Switch over to absolute encoder from analog input to CANCoder 
         //absoluteEncoder = new AnalogInput(absoluteEncoderId);
 
-        SteerCANcoder = new CANcoder(absoluteEncoderId);
+        SteerCANcoder = new CANcoder(CANcoderId);
 
         driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
@@ -75,12 +75,19 @@ public class SwerveModule {
         return turningEncoder.getVelocity();
     }
 
+    public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+        driveEncoder.getPosition(), new Rotation2d(turningEncoder.getPosition()));
+    }
+
     public double getAbsoluteEncoderRad() {
         double angle = SteerCANcoder.getPosition().getValueAsDouble();
         SmartDashboard.putString("Swerve[" + SteerCANcoder.getDeviceID() + "] angle", String.valueOf(angle));
         angle *= 2.0 * Math.PI;
         angle -= absoluteEncoderOffsetRad;
+        SmartDashboard.putString("Swerve[" + SteerCANcoder.getDeviceID() + "] angle Calced", String.valueOf(angle * (absoluteEncoderReversed ? -1.0 : 1.0)));
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
+        
     }
 
     public void resetEncoders() {
