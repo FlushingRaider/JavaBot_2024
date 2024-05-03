@@ -74,13 +74,13 @@ public class SwerveJoystickCmd extends Command {
         SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
         // 6. Output each module states to wheels
-        swerveSubsystem.setModuleStates(moduleStates);
+        swerveSubsystem.setStates(moduleStates);
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        swerveSubsystem.stopModules();
-    }
+    // @Override
+    // public void end(boolean interrupted) {
+    //     swerveSubsystem.stop();
+    // }
 
     @Override
     public boolean isFinished() {
