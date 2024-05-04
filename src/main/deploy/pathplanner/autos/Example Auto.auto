@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Forward"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Back"
+            "pathName": "Example"
           }
         }
       ]

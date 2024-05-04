@@ -10,6 +10,16 @@
       "/SmartDashboard/Pathfind to Scoring Pos": "Command"
     }
   },
+  "NetworkTables": {
+    "transitory": {
+      "SmartDashboard": {
+        "Auto Mode": {
+          "open": true
+        },
+        "open": true
+      }
+    }
+  },
   "NetworkTables Info": {
     "visible": true
   }
