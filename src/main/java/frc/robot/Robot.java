@@ -20,10 +20,9 @@ public class Robot extends TimedRobot {
     DataLogManager.start();
     DriverStation.startDataLog(DataLogManager.getLog());
 
-/*NOTE: These logging commands are for the CTRE Tuner X */
     SignalLogger.setPath("/U/logs");
     SignalLogger.start();
-/*END */
+
     DataLogManager.start();
     URCL.start();
 
@@ -46,7 +45,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
