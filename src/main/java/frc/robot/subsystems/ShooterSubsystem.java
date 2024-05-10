@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    private Double UpperRollerRPM = 0.0;
-    private Double LowerRollerRPM = 0.0;
+    private double UpperRollerRPM = 0.0;
+    private double LowerRollerRPM = 0.0;
 
     private final CANSparkMax UpperRollerMotor;
     private final CANSparkMax LowerRollerMotor;
@@ -28,7 +28,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public Command setPWM(double speedUpper, double speedLower) {
-        return run(
+        return runOnce(
                 () -> {
                     UpperRollerMotor.set(speedUpper);
                     LowerRollerMotor.set(speedLower);
@@ -36,11 +36,11 @@ public class ShooterSubsystem extends SubsystemBase {
                 });
     }
 
-    public Double getUpperRoller() {
+    public double getUpperRoller() {
         return (UpperRollerRPM);
     }
 
-    public Double getLowerRoller() {
+    public double getLowerRoller() {
         return (LowerRollerRPM);
     }
 

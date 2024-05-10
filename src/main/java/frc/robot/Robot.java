@@ -34,6 +34,8 @@ public class Robot extends TimedRobot {
     DataLogManager.start();
     URCL.start();
 
+
+
     shooter = new ShooterSubsystem(15, 14);
     m_robotContainer = new RobotContainer();
   }
@@ -64,10 +66,10 @@ public class Robot extends TimedRobot {
     //     null,
     //     null));
 
-    SmartDashboard.putNumber("upper roller", shooter.getUpperRoller());
+    SmartDashboard.putNumber("upper roller", shooter.getUpperRoller()); 
     SmartDashboard.putNumber("lower roller", shooter.getLowerRoller());
     
-    CommandScheduler.getInstance().schedule(shooter.setPWM(0.15, 0.15));
+    CommandScheduler.getInstance().schedule(shooter.setPWM(0.25, 0.25));
 
     CommandScheduler.getInstance().run();
   }
